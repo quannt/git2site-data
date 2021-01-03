@@ -8,6 +8,7 @@ const octokit = new Octokit({
 })
 
 async function fetchData () {
+  console.log(process.env.REPO_OWNER)
   const labels = (process.env.REPO_LABELS && process.env.REPO_LABELS.split(',').map(x => x.trim())) || []
   return octokit
     .paginate(octokit.issues.listForRepo, {
