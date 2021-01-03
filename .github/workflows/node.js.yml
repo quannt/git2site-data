@@ -35,12 +35,12 @@ jobs:
           REPO_NAME: ${{ secrets.REPO_NAME }}
           REPO_LABELS: ${{ secrets.REPO_LABELS }}
     - run: npm run generate
-      
+
     - name: Commit files
       run: |
         git config --local user.email "simpleplan.vn@gmail.com"
         git config --local user.name "Automated Action"
-        git add data/*/*.json
+         git add data/*/*.json
         git commit -m "Automated Data Update"  || exit 0
 
     - name: Push changes
