@@ -30,12 +30,12 @@ jobs:
 
     - name: Generate data
       env:
-          AUTH: ${{ secrets.GITHUB_TOKEN }}
+          AUTH: ${{ secrets.AUTH_GITHUB_TOKEN }}
           USER_AGENT: ${{ secrets.USER_AGENT }}
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
           REPO_NAME: ${{ secrets.REPO_NAME }}
           REPO_LABELS: ${{ secrets.REPO_LABELS }}
-      run: AUTH="$env:AUTH" USER_AGENT="$env:USER_AGENT" REPO_OWNER="$env:REPO_OWNER" REPO_NAME="$env:REPO_NAME" REPO_LABELS="$env:REPO_LABELS" npm run generate
+      run: AUTH="AUTH" USER_AGENT="USER_AGENT" REPO_OWNER="REPO_OWNER" REPO_NAME="REPO_NAME" REPO_LABELS="REPO_LABELS" npm run generate
 
     - name: Commit files
       run: |
@@ -48,5 +48,5 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         branch: master
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.AUTH_GITHUB_TOKEN }}
       
