@@ -36,6 +36,7 @@ jobs:
           REPO_NAME: ${{ secrets.REPO_NAME }}
           REPO_LABELS: ${{ secrets.REPO_LABELS }}
       run: |
+        echo "$REPO_NAME"
         AUTH="$AUTH" USER_AGENT="$USER_AGENT" REPO_OWNER="$REPO_OWNER" REPO_NAME="$REPO_NAME" REPO_LABELS="$REPO_LABELS" npm run generate
 
     - name: Commit files
