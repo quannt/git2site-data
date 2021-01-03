@@ -35,7 +35,7 @@ jobs:
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
           REPO_NAME: ${{ secrets.REPO_NAME }}
           REPO_LABELS: ${{ secrets.REPO_LABELS }}
-      run: npm run generate
+      run: AUTH="$env:AUTH" USER_AGENT="$env:USER_AGENT" REPO_OWNER="$env:REPO_OWNER" REPO_NAME="$env:REPO_NAME" REPO_LABELS="$env:REPO_LABELS" npm run generate
 
     - name: Commit files
       run: |
