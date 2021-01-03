@@ -1,5 +1,7 @@
 require('dotenv').config()
 const { Octokit } = require("@octokit/rest")
+const fs = require('fs')
+
 const octokit = new Octokit({
   auth: process.env.AUTH,
   userAgent: process.env.USER_AGENT
@@ -14,14 +16,10 @@ async function fetchData () {
       labels,
       state: 'open'
     })
-    .then((issues) => {
-      // issues is an array of all issue objects
-      console.log(issues)
-    });
 }
 
 function generateSites (data) {
-  console.log(data)
+  fs.writeFileSync(`./data/data.json`, JSON.stringify(data))
 }
 
 
