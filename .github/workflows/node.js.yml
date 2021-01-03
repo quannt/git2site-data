@@ -1,0 +1,51 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Fetch and generate data.
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: "*/15 * * * *"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Checkout latest code and install dependencies
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+
+    - name: Generate data
+      env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          AUTH: ${{ secrets.AUTH }}
+          USER_AGENT: ${{ secrets.USER_AGENT }}
+          REPO_OWNER: ${{ secrets.REPO_OWNER }}
+          REPO_NAME: ${{ secrets.REPO_NAME }}
+          REPO_LABELS: ${{ secrets.REPO_LABELS }}
+    - run: npm run generate
+      
+    - name: Commit files
+      run: |
+        git config --local user.email "simpleplan.vn@gmail.com"
+        git config --local user.name "Automated Action"
+        git add data/*/*.json
+        git commit -m "Automated Data Update"  || exit 0
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: master
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+      
