@@ -30,7 +30,6 @@ jobs:
 
     - name: Generate data
       env:
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           AUTH: ${{ secrets.GITHUB_TOKEN }}
           USER_AGENT: ${{ secrets.USER_AGENT }}
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
