@@ -14,10 +14,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x]
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -40,7 +36,7 @@ jobs:
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
           REPO_NAME: ${{ secrets.REPO_NAME }}
           REPO_LABELS: ${{ secrets.REPO_LABELS }}
-    - run: npm run generate
+      run: npm run generate
 
     - name: Commit files
       run: |
